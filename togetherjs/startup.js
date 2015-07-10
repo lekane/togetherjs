@@ -54,13 +54,14 @@ define(["util", "require", "jquery", "windowing", "storage"], function (util, re
         next();
         return;
       }
-      windowing.show("#togetherjs-browser-broken", {
-        onClose: function () {
-          session.close();
-        }
-      });
+
+      // TODO: warn about not supported browser
+      console.warn('Browser not supported');
+      session.close();
+
       if ($.browser.msie) {
-        $("#togetherjs-browser-broken-is-ie").show();
+        // TODO: warn about internet explorer
+        console.warn("MSIE");
       }
     },
 
