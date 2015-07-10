@@ -188,7 +188,7 @@ define(["require", "util", "channels", "jquery", "storage"], function (require, 
       if (msg.urlHash) {
         url += msg.urlHash;
       }
-  
+
       location.href = url;
     }
   }
@@ -402,12 +402,6 @@ define(["require", "util", "channels", "jquery", "storage"], function (require, 
                 startup.start();
               });
               ui.activateUI();
-              TogetherJS.config.close("enableAnalytics");
-              if (TogetherJS.config.get("enableAnalytics")) {
-                require(["analytics"], function (analytics) {
-                  analytics.activate();
-                });
-              }
               peers._SelfLoaded.then(function () {
                 sendHello(false);
               });
