@@ -4,7 +4,7 @@
 
 // Cursor viewing support
 
-define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventMaker", "peers", "templating"], function ($, ui, util, session, elementFinder, tinycolor, eventMaker, peers, templating) {
+define(["jquery", "ui", "util", "session", "elementFinder", "eventMaker", "peers", "templating"], function ($, ui, util, session, elementFinder, eventMaker, peers, templating) {
   var assert = util.assert;
   var cursor = util.Module("cursor");
 
@@ -58,7 +58,7 @@ define(["jquery", "ui", "util", "session", "elementFinder", "tinycolor", "eventM
       name.text(peer.name);
       nameContainer.css({
         backgroundColor: peer.color,
-        color: tinycolor.mostReadable(peer.color, FOREGROUND_COLORS)
+        color: FOREGROUND_COLORS[1]
       });
       var path = this.element.find("svg path");
       path.attr("fill", peer.color);

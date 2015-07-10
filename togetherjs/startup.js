@@ -13,7 +13,7 @@
    When everything is done it fires session.emit("startup-ready")
 
 */
-define(["util", "require", "jquery", "windowing", "storage"], function (util, require, $, windowing, storage) {
+define(["util", "require", "jquery", "storage"], function (util, require, $, storage) {
   var assert = util.assert;
   var startup = util.Module("startup");
   // Avoid circular import:

@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
-define(["jquery", "util", "peers", "windowing", "session"], function ($, util, peers, windowing, session) {
+define(["jquery", "util", "peers", "session"], function ($, util, peers, session) {
   var assert = util.assert;
   var templating = util.Module("templating");
 
