@@ -7,84 +7,10 @@
 */ %>
 <div id="togetherjs-container" class="togetherjs">
 
-  <!-- this is popped up when you hit the audio button, but RTC isn't
-  supported: -->
-  <div id="togetherjs-rtc-not-supported" class="togetherjs-window"
-       data-bind-to="#togetherjs-audio-button"
-       style="display: none">
-    <header> {{ gettext('Audio Chat') }} </header>
-
-    <section>
-      <p>{{ gettext('Audio chat requires you to use a <a href=\'https://github.com/mozilla/togetherjs/wiki/About-Audio-Chat-and-WebRTC\' target=\'_blank\'>newer browser</a>!') }}</p>
-      <p>
-        {{ gettext('Live audio chat requires a newer (or different) browser than you\'re using.') }}
-      </p>
-      <p>
-        {{ gettext('See <a href=\'https://github.com/mozilla/togetherjs/wiki/About-Audio-Chat-and-WebRTC\' target=\'_blank\'>this page</a>for more information and a list of supported browsers.') }}
-      </p>
-    </section>
-
-    <section class="togetherjs-buttons">
-      <div class="togetherjs-rtc-dialog-btn">
-        <button class="togetherjs-default togetherjs-dismiss" type="button">{{ gettext('Close') }}</button>
-      </div>
-    </section>
-  </div>
-
   <!-- Invisible elements that handle the RTC audio: -->
   <audio id="togetherjs-audio-element"></audio>
   <audio id="togetherjs-local-audio" muted="true" volume="0.3"></audio>
   <audio id="togetherjs-notification" src="http://localhost:8080/togetherjs/images/notification.ogg"></audio>
-
-  <!-- Shown when a web browser is completely incapable of running TogetherJS: -->
-  <div id="togetherjs-browser-broken" class="togetherjs-modal" style="display: none">
-    <header> {{ gettext('Sorry') }} </header>
-
-    <section>
-      <p>
-        {{ gettext("We're sorry, TOOL_NAME doesn't work with this browser.  Please <a href='https://github.com/mozilla/togetherjs/wiki/Supported-Browsers#supported-browsers'>upgrade to a supported browser</a> to try TOOL_NAME." ) }}
-      </p>
-
-      <p id="togetherjs-browser-broken-is-ie" style="display: none">
-        {{ gettext('We need your help fixing TogetherJS on Internet Explorer!  Here are a list of IE <a href=\"https://github.com/mozilla/togetherjs/issues?labels=IE&milestone=&page=1&state=open\" target=\"_blank\">GitHub issues</a> we need fixed that you can work on.') }}
-        {{ gettext("Internet Explorer <a href=\"https://github.com/mozilla/togetherjs/wiki/Supported-Browsers#internet-explorer\">is currently not supported</a>.  If you do want to try out TogetherJS, we'd suggest using Firefox or Chrome.") }}
-      </p>
-    </section>
-
-    <section class="togetherjs-buttons">
-      <button class="togetherjs-dismiss togetherjs-primary">{{ gettext('End TOOL_NAME') }}</button>
-    </section>
-
-  </div>
-
-  <!-- Shown when the browser has WebSockets, but is IE (i.e., IE10) -->
-  <div id="togetherjs-browser-unsupported" class="togetherjs-modal" style="display: none">
-    <header> {{ gettext('Unsupported Browser') }} </header>
-
-    <section>
-      <p>
-        {{ gettext('We need your help fixing TogetherJS on Internet Explorer!  Here are a list of IE <a href="https://github.com/mozilla/togetherjs/issues?labels=IE&milestone=&page=1&state=open" target="_blank">GitHub issues</a> we need fixed that you can work on.') }}
-        {{ gettext("Internet Explorer <a href=\"https://github.com/mozilla/togetherjs/wiki/Supported-Browsers#internet-explorer\">is currently not supported</a>.  If you do want to try out TogetherJS, we'd suggest using Firefox or Chrome.") }}
-      </p>
-
-      <p>{{ gettext('You can continue to try to use TOOL_NAME, but you are likely to hit lots of bugs.  So be warned.') }}</p>
-
-    </section>
-
-    <section class="togetherjs-buttons">
-      <button class="togetherjs-dismiss togetherjs-primary">{{ gettext('End TOOL_NAME') }}</button>
-      <button class="togetherjs-dismiss togetherjs-secondary togetherjs-browser-unsupported-anyway">{{ gettext('Try TOOL_NAME Anyway') }}</button>
-    </section>
-
-  </div>
-
-
-  <!-- The pointer at the side of a window: -->
-  <div id="togetherjs-window-pointer-right" style="display: none"></div>
-  <div id="togetherjs-window-pointer-left" style="display: none"></div>
-
-  <!-- The element that overlaps the background of the page during a modal dialog: -->
-  <div id="togetherjs-modal-background" style="display: none"></div>
 
   <!-- Some miscellaneous templates -->
   <div style="display: none">
