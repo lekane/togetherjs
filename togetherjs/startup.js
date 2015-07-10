@@ -21,11 +21,7 @@ define(["util", "require", "jquery", "windowing", "storage"], function (util, re
 
   var STEPS = [
     "browserBroken",
-    "browserUnsupported",
-    "sessionIntro",
-    "walkthrough",
-    // Look in the share() below if you add anything after here:
-    "share"
+    "browserUnsupported"
     ];
 
   var currentStep = null;
@@ -70,60 +66,6 @@ define(["util", "require", "jquery", "windowing", "storage"], function (util, re
 
     browserUnsupported: function (next) {
         next();
-    },
-
-    sessionIntro: function (next) {
-      if ((! session.isClient) || ! session.firstRun) {
-        next();
-        return;
-      }
-      TogetherJS.config.close("suppressJoinConfirmation");
-      if (TogetherJS.config.get("suppressJoinConfirmation")) {
-        next();
-        return;
-      }
-      var cancelled = false;
-      windowing.show("#togetherjs-intro", {
-        onClose: function () {
-          if (! cancelled) {
-            next();
-          }
-        }
-      });
-      $("#togetherjs-intro .togetherjs-modal-dont-join").click(function () {
-        cancelled = true;
-        windowing.hide();
-        session.close("declined-join");
-      });
-    },
-
-    walkthrough: function (next) {
-      storage.settings.get("seenIntroDialog").then(function (seenIntroDialog) {
-        if (seenIntroDialog) {
-          next();
-          return;
-        }
-        require(["walkthrough"], function (walkthrough) {
-          walkthrough.start(true, function () {
-            storage.settings.set("seenIntroDialog", true);
-            next();
-          });
-        });
-      });
-    },
-
-    share: function (next) {
-      TogetherJS.config.close("suppressInvite");
-      if (session.isClient || (! session.firstRun) ||
-          TogetherJS.config.get("suppressInvite")) {
-        next();
-        return;
-      }
-      require(["windowing"], function (windowing) {
-        windowing.show("#togetherjs-share");
-        // FIXME: no way to detect when the window is closed
-        // If there was a next() step then it would not work
-      });
     }
 
   };
