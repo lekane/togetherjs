@@ -6,13 +6,6 @@ define(["require", "jquery", "util", "session", "templates","peers", "elementFin
   function (require, $, util, session, templates, peers, elementFinder) {
   var ui = util.Module('ui');
   var assert = util.assert;
-  var chat;
-
-  // This would be a circular import, but we just need the chat module sometime
-  // after everything is loaded, and this is sure to complete by that time:
-  require(["chat"], function (c) {
-    chat = c;
-  });
 
   /* Displays some toggleable element; toggleable elements have a
      data-toggles attribute that indicates what other elements should
