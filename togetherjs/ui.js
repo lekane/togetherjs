@@ -2,10 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-define(["require", "jquery", "util", "session", "templates", "templating",
-  "linkify", "peers", "windowing", "tinycolor", "elementFinder"],
-  function (require, $, util, session, templates, templating,
-  linkify, peers, windowing, tinycolor, elementFinder) {
+define(["require", "jquery", "util", "session", "templates","peers", "elementFinder"],
+  function (require, $, util, session, templates, peers, elementFinder) {
   var ui = util.Module('ui');
   var assert = util.assert;
   var chat;
