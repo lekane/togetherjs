@@ -158,8 +158,9 @@ define(["require", "jquery", "util", "session", "templates","peers", "elementFin
       this._lastUpdateUrlDisplay = url;
       var sameUrl = url == session.currentUrl();
       if(!sameUrl) {
-        console.log('User went to', url, this.peer.title);
-        $('#logBox').append('user went to ' + url + '\n');
+        console.log(this.peer);
+        console.log(this.peer.name, 'went to', url, this.peer.title);
+        $('#logBox').append(this.peer.name + ' went to ' + url + '\n');
       }
       return;
     },

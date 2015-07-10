@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-define(["util", "session", "storage", "require", "templates"], function (util, session, storage, require, templates) {
+define(["util", "session", "storage", "require"], function (util, session, storage, require) {
   var peers = util.Module("peers");
   var assert = util.assert;
   var CHECK_ACTIVITY_INTERVAL = 10*1000; // Every 10 seconds see if someone has gone idle
@@ -15,7 +15,6 @@ define(["util", "session", "storage", "require", "templates"], function (util, s
     ui = uiModule;
   });
 
-  var DEFAULT_NICKNAMES = templates("names").split(/,\s*/g);
   var Peer = util.Class({
 
     isSelf: false,
@@ -323,7 +322,7 @@ define(["util", "session", "storage", "require", "templates"], function (util, s
           storage.settings.get("defaultName"),
           storage.settings.get("color")).then((function (name, avatar, defaultName, color) {
             if (! defaultName) {
-              defaultName = util.pickRandom(DEFAULT_NICKNAMES);
+              defaultName = this.isCreator ? 'Visitor' : 'Agent';
 
               storage.settings.set("defaultName", defaultName);
             }
