@@ -188,7 +188,7 @@ define(["require", "util", "channels", "jquery", "storage"], function (require, 
       if (msg.urlHash) {
         url += msg.urlHash;
       }
-      require("ui").showUrlChangeMessage(msg.peer, url);
+  
       location.href = url;
     }
   }
