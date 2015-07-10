@@ -207,7 +207,6 @@ define(["require", "util", "channels", "jquery", "storage"], function (require, 
   session.makeHelloMessage = function (helloBack) {
     var msg = {
       name: peers.Self.name || peers.Self.defaultName,
-      avatar: peers.Self.avatar,
       color: peers.Self.color,
       url: session.currentUrl(),
       urlHash: location.hash,

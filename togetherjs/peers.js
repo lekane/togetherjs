@@ -28,7 +28,6 @@ define(["util", "session", "storage", "require"], function (util, session, stora
       this.status = attrs.status || "live";
       this.idle = attrs.status || "active";
       this.name = attrs.name || null;
-      this.avatar = attrs.avatar || null;
       this.color = attrs.color || "#00FF00";
       this.view = ui.PeerView(this);
       this.lastMessageDate = 0;
@@ -63,7 +62,6 @@ define(["util", "session", "storage", "require"], function (util, session, stora
         identityId: this.identityId,
         rtcSupported: this.rtcSupported,
         name: this.name,
-        avatar: this.avatar,
         color: this.color,
         following: this.following
       };
@@ -110,11 +108,6 @@ define(["util", "session", "storage", "require"], function (util, session, stora
       }
       if (msg.name && msg.name != this.name) {
         this.name = msg.name;
-        identityUpdated = true;
-      }
-      if (msg.avatar && msg.avatar != this.avatar) {
-        util.assertValidUrl(msg.avatar);
-        this.avatar = msg.avatar;
         identityUpdated = true;
       }
       if (msg.color && msg.color != this.color) {
@@ -246,7 +239,6 @@ define(["util", "session", "storage", "require"], function (util, session, stora
       status: "live",
       idle: "active",
       name: null,
-      avatar: null,
       color: null,
       defaultName: null,
       loaded: false,
@@ -261,15 +253,6 @@ define(["util", "session", "storage", "require"], function (util, session, stora
           updateMsg.name = this.name;
           if (! attrs.fromLoad) {
             storage.settings.set("name", this.name);
-            updatePeers = true;
-          }
-        }
-        if (attrs.avatar && attrs.avatar != this.avatar) {
-          util.assertValidUrl(attrs.avatar);
-          this.avatar = attrs.avatar;
-          updateMsg.avatar = this.avatar;
-          if (! attrs.fromLoad) {
-            storage.settings.set("avatar", this.avatar);
             updatePeers = true;
           }
         }
@@ -318,9 +301,8 @@ define(["util", "session", "storage", "require"], function (util, session, stora
       _loadFromSettings: function () {
         return util.resolveMany(
           storage.settings.get("name"),
-          storage.settings.get("avatar"),
           storage.settings.get("defaultName"),
-          storage.settings.get("color")).then((function (name, avatar, defaultName, color) {
+          storage.settings.get("color")).then((function (name, defaultName, color) {
             if (! defaultName) {
               defaultName = this.isCreator ? 'Visitor' : 'Agent';
 
@@ -334,12 +316,8 @@ define(["util", "session", "storage", "require"], function (util, session, stora
               color = "#" + color;
               storage.settings.set("color", color);
             }
-            if (! avatar) {
-              avatar = TogetherJS.baseUrl + "/togetherjs/images/default-avatar.png";
-            }
             this.update({
               name: name,
-              avatar: avatar,
               defaultName: defaultName,
               color: color,
               fromLoad: true
@@ -353,8 +331,7 @@ define(["util", "session", "storage", "require"], function (util, session, stora
         // We could test typeof==function to distinguish between a getter and a concrete value
         var getUserName = TogetherJS.config.get("getUserName");
         var getUserColor = TogetherJS.config.get("getUserColor");
-        var getUserAvatar = TogetherJS.config.get("getUserAvatar");
-        var name, color, avatar;
+        var name, color;
         if (getUserName) {
           if (typeof getUserName == "string") {
             name = getUserName;
@@ -380,22 +357,10 @@ define(["util", "session", "storage", "require"], function (util, session, stora
             color = null;
           }
         }
-        if (getUserAvatar) {
-          if (typeof getUserAvatar == "string") {
-            avatar = getUserAvatar;
-          } else {
-            avatar = getUserAvatar();
-          }
-          if (avatar && typeof avatar != "string") {
-            console.warn("Error in getUserAvatar(): should return a string (got", avatar, ")");
-            avatar = null;
-          }
-        }
-        if (name || color || avatar) {
+        if (name || color) {
           this.update({
             name: name,
-            color: color,
-            avatar: avatar
+            color: color
           });
         }
       }
@@ -420,14 +385,11 @@ define(["util", "session", "storage", "require"], function (util, session, stora
     "getUserName",
     TogetherJS.config.track(
       "getUserColor",
-      TogetherJS.config.track(
-        "getUserAvatar",
         function () {
           if (peers.Self) {
             peers.Self._loadFromApp();
           }
         }
-      )
     )
   );
 

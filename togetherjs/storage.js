@@ -8,7 +8,6 @@ define(["util"], function (util) {
   var DEFAULT_SETTINGS = {
     name: "",
     defaultName: "",
-    avatar: null,
     stickyShare: null,
     color: null,
     seenIntroDialog: false,
