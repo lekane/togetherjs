@@ -271,7 +271,6 @@ module.exports = function (grunt) {
       var gitCommit = process.env.GIT_COMMIT || "";
       var subs = {
         __interface_html__: grunt.file.read("togetherjs/interface.html"),
-        __help_txt__: grunt.file.read("togetherjs/help.txt"),
         __baseUrl__: baseUrl,
         __hubUrl__: hubUrl,
         __gitCommit__: gitCommit
@@ -325,12 +324,10 @@ module.exports = function (grunt) {
         var dest = path.join(grunt.option("dest"), "togetherjs/templates-" + lang + ".js");
 
         var translatedInterface = translateFile("togetherjs/interface.html", translation);
-        var translatedHelp = translateFile("togetherjs/help.txt", translation);
 
         var vars = subs;
 
         subs.__interface_html__ = translatedInterface;
-        subs.__help_txt__ = translatedHelp;
         subs.__names__ = translation.names;
         templates = substituteContent(templates, subs);
 
